@@ -15,21 +15,20 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     PDFView pdfView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //this use for load pdf file from asset folder offline
-//        pdfView=(PDFView)findViewById(R.id.pdfView);
-//        pdfView.fromAsset("sample.pdf").load();
+        pdfView=(PDFView) findViewById(R.id.pdfView);
+//
+        // pdfView.fromAsset("sample.pdf").load();
+      //  String getURL=getIntent().getExtras().getString("url");
+        String url="https://www.tutorialspoint.com/android/android_tutorial.pdf";
+      //  Log.d("pdf url",getURL);
 
-
-        //load pdf file from url
-        new RetrivePdfStrem().execute("http://www.kmvportal.co.in/Course/MAD/Android%20Book.pdf");
+        new RetrivePdfStrem().execute(url);
     }
-
     class RetrivePdfStrem extends AsyncTask<String,Void,InputStream>
     {
 
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(InputStream inputStream) {
 
-            pdfView.fromStream(inputStream);
+            pdfView.fromStream(inputStream).load();
 
         }
     }
